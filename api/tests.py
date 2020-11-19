@@ -128,7 +128,7 @@ class ApiTest(APITestCase, URLPatternsTestCase):
                          for item in order_items])
         calculated_user_credit = self.user_credits[customer_id-1]-total_amt
         db_user_credit = User.objects.get(pk=customer_id).credit
-        self.assertEqual(db_user_credit, calculated_user_credit)
+        self.assertEqual(db_user_credit, round(calculated_user_credit, 2))
 
     def test_exceeding_order(self):
         """check if ordering more than the stock would not succeed
@@ -166,7 +166,7 @@ class ApiTest(APITestCase, URLPatternsTestCase):
         for item in order_items:
             db_stock = Food.objects.get(pk=item['food']).stock
             stock = self.food_stocks[item['food']-1]
-            self.assertEqual(db_stock, stock)
+            self.assertEqual(db_stock, round(stock, 2))
 
         user_credit = self.user_credits[customer_id-1]
         db_user_credit = User.objects.get(pk=customer_id).credit
