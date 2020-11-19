@@ -12,4 +12,4 @@ run `python manage.py test` test to run all the tests
 
 ## Run the server
 
-run `python manage.py runserver` to launch the server in debug mode on [http://localhost:8000/]
+run `python manage.py runserver` to launch the server in debug mode on `http://localhost:8000/`
