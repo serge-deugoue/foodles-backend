@@ -4,6 +4,7 @@ from rest_framework.decorators import api_view
 from rest_framework.response import Response
 from rest_framework import status
 from django.db import transaction
+from django.db import IntegrityError
 
 # Create your views here.
 
@@ -41,13 +42,16 @@ def order_food(request):
     serializer = OrderSerializer(data=request.data)
     if serializer.is_valid():
         # use a transaction to ensure data integrity
-        with transaction.atomic():
-            serializer.save()
-            # update user credit
-            user = User.objects.get(pk=serializer.data["customer"])
-            user.credit -= serializer.data["total"]
-            user.save()
-            return Response({"succeed": 1, "updated_user": UserSerializer(user).data}, status=status.HTTP_201_CREATED)
+        try:
+            with transaction.atomic():
+                serializer.save()
+                # update user credit
+                user = User.objects.get(pk=serializer.data["customer"])
+                user.credit -= serializer.data["total"]
+                user.save()
+                return Response({"succeed": 1, "updated_user": UserSerializer(user).data}, status=status.HTTP_201_CREATED)
+        except IntegrityError:
+            return Response({"succeed": 0, "message": "You have tried to order more than the stock available"}, status=status.HTTP_200_OK)
     return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 
