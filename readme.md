@@ -4,7 +4,7 @@ This project was generated with Django version 3.1.3
 
 ## Installing depencdencies
 
-run `pip install -r requirements.txt ` to install all the project dependencies
+run `pip install -r requirements.txt` to install all the project dependencies
 
 ## Running Tests
 
