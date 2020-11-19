@@ -1,6 +1,6 @@
 # FoodlesBackend
 
-This project was generated with Django
+This project was generated with Django version 3.1.3
 
 ## Installing depencdencies
 

@@ -1,6 +1,6 @@
 # workspace settings
 .vscode
 # virtual environment
-.venv
+**venv
 
 **__pycache__
