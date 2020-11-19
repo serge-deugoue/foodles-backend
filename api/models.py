@@ -16,6 +16,11 @@ class User(models.Model):
     def __str__(self):
         return self.email
 
+    def save(self, *args, **kwargs):
+        # limiting to 2 decimal places
+        self.credit = round(self.credit, 2)
+        super(User, self).save(*args, **kwargs)
+
 
 class Food(models.Model):
 
@@ -26,6 +31,11 @@ class Food(models.Model):
 
     def __str__(self):
         return self.title
+
+    def save(self, *args, **kwargs):
+        # limiting to 2 decimal places
+        self.price = round(self.price, 2)
+        super(Food, self).save(*args, **kwargs)
 
 
 class Order(models.Model):
